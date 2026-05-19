@@ -65,6 +65,17 @@ def cadastroAtividade(request):
 
 @login_required(login_url="/tarefas/login")
 def cadastroUsuario(request):
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+
+        novo_usuario = Usuario(nome=nome,
+                               email=email)
+        
+        novo_usuario.save()
+
+        return HttpResponseRedirect('/tarefas/listarusuarios')
+
     return render(request, "cadastroUsuario.html")
 
 @login_required(login_url="/tarefas/login")
